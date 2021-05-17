@@ -26,7 +26,9 @@ class StanzaSyntaxTaggerRequestSchema(Schema):
 class StanzaSyntaxTaggerWorker(Worker):
     def __init__(self, resources_dir: str = "stanza_resources/"):
         self.schema = StanzaSyntaxTaggerRequestSchema
-        self.tagger = StanzaSyntaxTagger(input_type='morph_extended', dir=resources_dir)
+        self.tagger = StanzaSyntaxTagger( input_type='morph_extended', \
+                                          input_morph_layer='morph_extended', \
+                                          dir=resources_dir )
 
     def process_request(self, content: Dict, _: str) -> Response:
         try:

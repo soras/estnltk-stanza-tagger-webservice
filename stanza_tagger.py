@@ -54,7 +54,7 @@ class StanzaSyntaxTagger(Tagger):
                  output_layer='stanza_syntax',
                  sentences_layer='sentences',
                  words_layer='words',
-                 input_morph_layer='morph_analysis',
+                 input_morph_layer='morph_analysis', # or 'morph_extended' if input_type='morph_extended'
                  input_type='morph_analysis',  # or 'morph_extended', 'sentences'
                  add_parent_and_children=False,
                  depparse_path=None,
