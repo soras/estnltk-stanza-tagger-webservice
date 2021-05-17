@@ -50,7 +50,7 @@ def tagger_stanza_syntax_status():
 def tagger_stanza_syntax_ensemble():
     if request.content_length > settings.MAX_CONTENT_LENGTH:
         abort(413)
-    response = stanza.process_request(content=request.json)
+    response = stanza_ensemble.process_request(content=request.json)
     return response
 
 @app.get('/estnltk/tagger/stanza_syntax_ensemble/about')
