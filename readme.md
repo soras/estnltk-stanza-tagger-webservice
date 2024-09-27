@@ -20,6 +20,7 @@ The folder `stanza_resources` contains models required by EstNLTK's `StanzaSynta
 	    │   │   │   ├── model_7.pt
 	    │   │   │   ├── model_8.pt
 	    │   │   │   └── model_9.pt
+	    │   │   ├── edt.pt
 	    │   │   ├── morph_analysis.pt
 	    │   │   ├── morph_extended.pt
 	    │   │   └── stanza_depparse.pt
