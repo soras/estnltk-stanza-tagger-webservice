@@ -19,9 +19,8 @@ from random import Random
 from typing import Tuple
 
 import stanza
-from estnltk.layer.layer import Layer
+from estnltk_core import Layer, Tagger
 from stanza_tagger import feats_to_ordereddict
-from estnltk.taggers.tagger import Tagger
 from stanza import Document
 
 
