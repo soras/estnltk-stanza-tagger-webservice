@@ -1,7 +1,8 @@
 import logging
-import os
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from estnltk_core.common import load_text_class
@@ -28,15 +29,15 @@ stanza_tagger = StanzaSyntaxTagger(input_type='morph_extended',
                                    dir=settings.stanza_models_dir)
 ensemble_tagger = StanzaSyntaxEnsembleTagger(dir=settings.stanza_models_dir)
 
-class Request(BaseModel):
-    text: str
-    meta: dict
-    layers: str
-    output_layer: str = None
-    parameters: dict = None
+class RequestModel(BaseModel):
+    text: str = Field(...)
+    meta: dict = Field(...)
+    layers: str = Field(...)
+    output_layer: Optional[str] = Field(None)
+    parameters: Optional[dict] = Field(None)
 
 @app.post('/estnltk/tagger/stanza_syntax')
-def tagger_stanza_syntax(body: Request):
+def tagger_stanza_syntax(body: RequestModel):
     if len(str(body)) > settings.max_content_length:
         raise HTTPException(status_code=413, detail="Request body too large")
     try:
@@ -57,12 +58,12 @@ def tagger_stanza_syntax(body: Request):
     except Exception:
         raise HTTPException(status_code=500, detail='Internal error at input processing')
 
-@app.get('/estnltk/tagger/stanza_syntax/about')
+@app.get('/estnltk/tagger/stanza_syntax/about', response_class=HTMLResponse)
 def tagger_stanza_syntax_about():
     return 'Tags dependency syntactic analysis using EstNLTK StanzaSyntaxTagger\'s webservice.'
 
 
-@app.get('/estnltk/tagger/stanza_syntax/status')
+@app.get('/estnltk/tagger/stanza_syntax/status', response_class=HTMLResponse)
 def tagger_stanza_syntax_status():
     return 'OK'
 
@@ -71,7 +72,7 @@ def tagger_stanza_syntax_status():
 #
 
 @app.post('/estnltk/tagger/stanza_syntax_ensemble')
-def tagger_stanza_syntax_ensemble(body: Request):
+def tagger_stanza_syntax_ensemble(body: RequestModel):
     if len(str(body)) > settings.max_content_length:
         raise HTTPException(status_code=413, detail="Request body too large")
     try:
@@ -94,11 +95,11 @@ def tagger_stanza_syntax_ensemble(body: Request):
         logger.exception('Internal error at input processing')
         raise HTTPException(status_code=500, detail='Internal error at input processing')
 
-@app.get('/estnltk/tagger/stanza_syntax_ensemble/about')
+@app.get('/estnltk/tagger/stanza_syntax_ensemble/about', response_class=HTMLResponse)
 def tagger_stanza_syntax_ensemble_about():
     return 'Tags dependency syntactic analysis using EstNLTK StanzaSyntaxEnsembleTagger\'s webservice.'
 
 
-@app.get('/estnltk/tagger/stanza_syntax_ensemble/status')
+@app.get('/estnltk/tagger/stanza_syntax_ensemble/status', response_class=HTMLResponse)
 def tagger_stanza_syntax_ensemble_status():
     return 'OK'
