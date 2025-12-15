@@ -1,0 +1,9 @@
+stanza_resources/*
+!stanza_resources/readme.md
+!stanza_resources/resources.json
+*.env
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.DS_Store

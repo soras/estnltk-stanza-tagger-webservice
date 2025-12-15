@@ -17,8 +17,7 @@ from random import Random
 from collections import OrderedDict
 
 import stanza
-from estnltk.layer.layer import Layer
-from estnltk.taggers.tagger import Tagger
+from estnltk_core import Layer, Tagger
 from stanza.models.common.doc import Document
 
 
